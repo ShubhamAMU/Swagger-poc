@@ -93,13 +93,75 @@
         }
       },
       "400": {
-        "$ref": "../../definitions/responses.json#/components/responses/400"
+        "$ref": "#/components/responses/400"
       },
       "403": {
-        "$ref": "../../definitions/responses.json#/components/responses/403"
+        "$ref": "#/components/responses/403"
       },
       "404": {
-        "$ref": "../../definitions/responses.json#/components/responses/404"
+        "$ref": "#/components/responses/404"
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "400": {
+        "description": "When path parameter assembly-id is empty or null",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "schemas.json#/components/schemas/error"
+            },
+            "example": {
+              "error": "Bad Request",
+              "message": "Missing required path parameters: assembly-id"
+            }
+          }
+        }
+      },
+      "403": {
+        "description": "When App not allowed to bypass cache and bypass-cache header is true",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "schemas.json#/components/schemas/error"
+            },
+            "example": {
+              "error": "Forbidden",
+              "message": "App not allowed to request this content"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "When path parameter assembly-id is invalid",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "schemas.json#/components/schemas/error"
+            },
+            "examples": {
+              "Invalid Assembly Id": {
+                "value": {
+                  "error": "Not Found",
+                  "message": "No results Found"
+                }
+              },
+              "Invalid path": {
+                "value": {
+                  "error": "Not supported",
+                  "message": "Raising fault. Fault name : RaiseFault.InvalidPath"
+                }
+              },
+              "Invalid Channel Homepage Mobile": {
+                "value": {
+                  "error": "Not Found",
+                  "message": "Homepage Assembly not available for mobile"
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
