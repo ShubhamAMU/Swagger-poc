@@ -110,7 +110,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "schemas.json#/components/schemas/error"
+              "$ref": "../../definitions/schemas.json#/components/schemas/error"
             },
             "example": {
               "error": "Bad Request",
@@ -124,7 +124,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "schemas.json#/components/schemas/error"
+              "$ref": "../../definitions/schemas.json#/components/schemas/error"
             },
             "example": {
               "error": "Forbidden",
@@ -138,7 +138,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "schemas.json#/components/schemas/error"
+              "$ref": "../../definitions/schemas.json#/components/schemas/error"
             },
             "examples": {
               "Invalid Assembly Id": {
