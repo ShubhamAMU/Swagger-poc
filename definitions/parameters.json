@@ -1,0 +1,33 @@
+{
+  "components": {
+    "parameters": {
+      "apikey": {
+        "name": "API Key",
+        "in": "header",
+        "description": "API authentication key",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "locale": {
+        "name": "Locale",
+        "in": "header",
+        "description": "Locale to filter on, using Contentful format (e.g., en)",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "assembly-id": {
+        "name": "Assembly ID",
+        "in": "path",
+        "description": "Homepage Contentful Assembly ID to render",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "F1 Editorial Assemblies",
+    "description": "Endpoints to expose F1 Assembly content from Contentful and to be consumed for Hub and Assembly pages",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://{environment}-api.formula1.com/v1/editorial",
+      "description": "Apigee Endpoint Details",
+      "variables": {
+        "environment": {
+          "default": "staging",
+          "enum": ["staging", "dev"]
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/home/{assembly-id}": {
+      "$ref": "homepage.json"
+    }
+  }
+}

@@ -1,0 +1,307 @@
+{
+  "components": {
+    "schemas": {
+      "error": {
+        "type": "object",
+        "required": [
+          "error",
+          "message"
+        ],
+        "properties": {
+          "error": {
+            "type": "number",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "image": {
+        "atomImage": {
+          "type": "object",
+          "required": [
+            "imageFile"
+          ],
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "image": {
+              "$ref": "#/components/schemas/cloudinaryImage"
+            },
+            "isLogo": {
+              "$ref": "#/components/schemas/boolean"
+            },
+            "altText": {
+              "type": "string"
+            },
+            "caption": {
+              "type": "string",
+              "maxLength": 512
+            },
+            "webUrl": {
+              "type": "string",
+              "description": "Web Hyperlink"
+            },
+            "mobileUrl": {
+              "type": "string",
+              "description": "Mobile Deeplink"
+            }
+          }
+        },
+        "cloudinaryImage": {
+          "type": "object",
+          "required": [
+            "title",
+            "path",
+            "url",
+            "public_id"
+          ],
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The image title is being used as alt text",
+              "example": "sample-author-mobile.png"
+            },
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "example": "/content/dam/fom-website/sample-author-mobile.png"
+            },
+            "url": {
+              "type": "string",
+              "minLength": 1,
+              "example": "https://alpha-media.formula1.com/image/upload/f_auto/q_auto/v1676287456/content/dam/fom-website/sample-author-mobile.png"
+            },
+            "public_id": {
+              "type": "string",
+              "minLength": 1,
+              "example": "content/dam/fom-website/sample-author-mobile"
+            },
+            "alt": {
+              "type": "string",
+              "description": "Alt Text to be shown",
+              "example": "Sample author mobile.png"
+            },
+            "renditions": {
+              "$ref": "#/components/schemas/imageRenditions"
+            },
+            "raw_transformation": {
+              "type": "string",
+              "example": "f_auto/q_auto"
+            },
+            "width": {
+              "type": "number",
+              "example": 3756
+            },
+            "height": {
+              "type": "number",
+              "example": 2681
+            }
+          }
+        },
+        "brightcoveImage": {
+          "type": "object",
+          "required": [
+            "title",
+            "path",
+            "url"
+          ],
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The image title is being used as alt text",
+              "example": "sample-author-mobile.png"
+            },
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "example": "/content/dam/fom-website/sample-author-mobile.png"
+            },
+            "url": {
+              "type": "string",
+              "minLength": 1,
+              "example": "https://alpha-media.formula1.com/image/upload/f_auto/q_auto/v1676287456/content/dam/fom-website/sample-author-mobile.png"
+            },
+            "alt": {
+              "type": "string",
+              "description": "Alt Text to be shown",
+              "example": "Sample author mobile.png"
+            },
+            "renditions": {
+              "$ref": "#/components/schemas/imageRenditions"
+            }
+          }
+        }
+      },
+      "atomImageGallery": {
+        "type": "object",
+        "required": [
+          "imageList"
+        ],
+        "properties": {
+          "caption": {
+            "type": "string"
+          },
+          "imageList": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/components/schemas/atomImage"
+            }
+          }
+        }
+      },
+      "atomVideo": {
+        "type": "object",
+        "required": [
+          "videoId",
+          "videoDuration",
+          "videoDurationInSeconds",
+          "caption",
+          "thumbnail",
+          "isProtected"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "videoId": {
+            "type": "string"
+          },
+          "videoDuration": {
+            "type": "string"
+          },
+          "videoDurationInSeconds": {
+            "type": "number"
+          },
+          "caption": {
+            "type": "string"
+          },
+          "thumbnail": {
+            "$ref": "#/components/schemas/brightcoveImage"
+          },
+          "isProtected": {
+            "$ref": "#/components/schemas/boolean"
+          },
+          "videoReferenceId": {
+            "type": "string"
+          }
+        }
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "en",
+          "de",
+          "fr",
+          "es",
+          "zh",
+          "ar",
+          "az",
+          "hu",
+          "nl",
+          "it",
+          "ru",
+          "ja",
+          "pt"
+        ]
+      },
+      "articleType": {
+        "type": "string",
+        "enum": [
+          "Interview",
+          "News",
+          "Report",
+          "Feature",
+          "Opinion",
+          "Technical",
+          "Poll",
+          "Video",
+          "Podcast",
+          "Image Gallary",
+          "Festivals",
+          "Live Blog",
+          "Esports"
+        ]
+      },
+      "mediaIcon": {
+        "type": "string",
+        "enum": [
+          "Audio",
+          "Image",
+          "Image Gallary",
+          "Video"
+        ]
+      },
+      "boolean": {
+        "type": "boolean",
+        "enum": [
+          false,
+          true
+        ]
+      },
+      "imageRenditions": {
+        "type": "object",
+        "required": [
+          "2col",
+          "2col-retina",
+          "3col",
+          "3col-retina",
+          "4col",
+          "4col-retina",
+          "6col",
+          "6col-retina",
+          "9col",
+          "9col-retina"
+        ],
+        "properties": {
+          "2col": {
+            "type": "string",
+            "minLength": 1
+          },
+          "2col-retina": {
+            "type": "string",
+            "minLength": 1
+          },
+          "3col": {
+            "type": "string",
+            "minLength": 1
+          },
+          "3col-retina": {
+            "type": "string",
+            "minLength": 1
+          },
+          "4col": {
+            "type": "string",
+            "minLength": 1
+          },
+          "4col-retina": {
+            "type": "string",
+            "minLength": 1
+          },
+          "6col": {
+            "type": "string",
+            "minLength": 1
+          },
+          "6col-retina": {
+            "type": "string",
+            "minLength": 1
+          },
+          "9col": {
+            "type": "string",
+            "minLength": 1
+          },
+          "9col-retina": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

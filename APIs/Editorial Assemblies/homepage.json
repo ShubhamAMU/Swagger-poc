@@ -1,0 +1,106 @@
+{
+  "get": {
+    "summary": "Given a Homepage Contentful Assembly Id, returns Homepage response",
+    "operationId": "getFullHomepage",
+    "parameters": [
+      {
+        "$ref": "../../definitions/parameters.json#/components/parameters/apikey"
+      },
+      {
+        "$ref": "../../definitions/parameters.json#/components/parameters/locale"
+      },
+      {
+        "$ref": "../../definitions/parameters.json#/components/parameters/assembly-id"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "OK",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "contentType",
+                "createdAt",
+                "id",
+                "locale",
+                "regions",
+                "updatedAt"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Contentful ID of the View Assembly entry.",
+                  "minLength": 1
+                },
+                "contentType": {
+                  "type": "string",
+                  "minLength": 12,
+                  "default": "viewAssembly"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "description": "Date and time when the entry was created",
+                  "minLength": 24,
+                  "maxLength": 24,
+                  "format": "date-time",
+                  "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$",
+                  "example": "2018-06-13T11:56:59.244Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "description": "Date and time when the entry was updated",
+                  "minLength": 24,
+                  "maxLength": 24,
+                  "format": "date-time",
+                  "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$",
+                  "example": "2024-09-05T08:44:15.191Z"
+                },
+                "seoTitle": {
+                  "type": "string",
+                  "description": "This is used by core web only for SEO"
+                },
+                "locale": {
+                  "type": "string",
+                  "description": "Locale to filter on, using Contentful format (e.g., en)",
+                  "$ref": "../../definitions/schemas.json#/components/schemas/locale"
+                },
+                "metaDescription": {
+                  "type": "string",
+                  "description": "This is used by core web only for SEO"
+                },
+                "pageDescription": {
+                  "type": "string"
+                },
+                "regions": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "anyOf": [
+                      {
+                        "$ref": "../../definitions/schemas.json#/components/schemas/image/brightcoveImage"
+                      },
+                      {
+                        "$ref": "../../definitions/schemas.json#/components/schemas/image/cloudinaryImage"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "400": {
+        "$ref": "../../definitions/responses.json#/components/responses/400"
+      },
+      "403": {
+        "$ref": "../../definitions/responses.json#/components/responses/403"
+      },
+      "404": {
+        "$ref": "../../definitions/responses.json#/components/responses/404"
+      }
+    }
+  }
+}

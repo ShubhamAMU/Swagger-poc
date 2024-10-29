@@ -1,0 +1,58 @@
+{
+  "components": {
+    "responses": {
+      "400": {
+        "description": "When path parameter article_id is empty or null",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "schemas.json#/components/schemas/error"
+            },
+            "example": {
+              "error": "Bad Request",
+              "message": "No Valid Article Found"
+            }
+          }
+        }
+      },
+      "403": {
+        "description": "When App not allowed to bypass cache and bypass-cache header is true",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "schemas.json#/components/schemas/error"
+            },
+            "example": {
+              "error": "Forbidden",
+              "message": "App not allowed to request this content"
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "When path parameter article_id is invalid",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "schemas.json#/components/schemas/error"
+            },
+            "examples": {
+              "Invalid Article Id": {
+                "value": {
+                  "error": "Not Found",
+                  "message": "No Valid Article Found"
+                }
+              },
+              "Invalid path": {
+                "value": {
+                  "error": "Not supported",
+                  "message": "Raising fault. Fault name : RaiseFault.InvalidPath"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
