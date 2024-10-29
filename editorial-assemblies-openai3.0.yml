@@ -1,0 +1,130 @@
+openapi: "3.0.0"
+info:
+  title: F1 Editorial Assemblies
+  description: Endpoints to expose F1 Assembly content from Contentful and to be consumed for Hub and Assembly pages
+  version: 1.0.0
+servers:
+  - url: "https://{environment}-api.formula1.com/v1/editorial"
+    description: Apigee endpoint details
+    variables:
+      environment:
+        default: staging
+        enum:
+          - staging
+paths:
+  /home/{assembly-id}:
+    get:
+      summary: "Given a Homepage Contentful Assembly Id, returns Homepage response"
+      operationId: getFullHomepage
+      parameters:
+        - $ref: "../../parameters.yaml#/components/parameters/apikey"
+        - $ref: "../../parameters.yaml#/components/parameters/locale"
+        - $ref: "../../parameters.yaml#/components/parameters/assembly-id"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - contentType
+                  - createdAt
+                  - id
+                  - locale
+                  - regions
+                  - updatedAt
+                properties:
+                  id:
+                    type: string
+                    description: Contentful ID of the View Assembly entry.
+                    minLength: 1
+
+                  contentType:
+                    type: string
+                    minLength: 12
+                    default: "viewAssembly"
+
+                  createdAt:
+                    type: string
+                    description: Date and time when the entry was created
+                    minLength: 24
+                    maxLength: 24
+                    format: date-time
+                    pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$
+                    example: "2018-06-13T11:56:59.244Z"
+
+                  updatedAt:
+                    type: string
+                    description: Date and time when the entry was updated
+                    minLength: 24
+                    maxLength: 24
+                    format: date-time
+                    pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$
+                    example: "2024-09-05T08:44:15.191Z"
+
+                  seoTitle:
+                    type: string
+                    description: This is used by core web only for SEO
+
+                  locale:
+                    type: string
+                    description: Locale to filter on, using Contentful format (e.g., en)
+                    $ref: "../../basic-details.yaml#/components/schemas/locale"
+
+                  metaDescription:
+                    type: string
+                    description: This is used by core web only for SEO
+
+                  pageDescription:
+                    type: string
+
+                  regions:
+                    type: array
+                    minItems: 1
+                    items:
+                      anyOf:
+                        - $ref: "../../basic-details.yaml#/components/schemas/image/brightcoveImage"
+                        - $ref: "../../basic-details.yaml#/components/schemas/image/cloudinaryImage"
+
+        "400":
+          $ref: "#/components/responses/400"
+        "403":
+          $ref: "#/components/responses/403"
+        "404":
+          $ref: "#/components/responses/404"
+components:
+  responses:
+    400:
+      description: When path parameter article_id is empty or null
+      content:
+        application/json:
+          schema:
+            $ref: "../../basic-details.yaml#/components/schemas/error"
+          example:
+            error: "Bad Request"
+            message: "No Valid Article Found"
+    403:
+      description: When App not allowed to bypass cache and bypass-cache header is true
+      content:
+        application/json:
+          schema:
+            $ref: "../../basic-details.yaml#/components/schemas/error"
+          example:
+            error: "Forbidden"
+            message: "App not allowed to request this content"
+    404:
+      description: When path parameter article_id is invalid
+      content:
+        application/json:
+          schema:
+            $ref: "../../basic-details.yaml#/components/schemas/error"
+          examples:
+            Invalid Article Id:
+              value:
+                error: "Not Found"
+                message: "No Valid Article Found"
+            Invalid path:
+              value:
+                error: "Not supported"
+                message: "Raising fault. Fault name : RaiseFault.InvalidPath"
