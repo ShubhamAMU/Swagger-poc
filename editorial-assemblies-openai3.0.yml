@@ -16,10 +16,6 @@ paths:
     get:
       summary: "Given a Homepage Contentful Assembly Id, returns Homepage response"
       operationId: getFullHomepage
-      parameters:
-        - $ref: "../../parameters.yaml#/components/parameters/apikey"
-        - $ref: "../../parameters.yaml#/components/parameters/locale"
-        - $ref: "../../parameters.yaml#/components/parameters/assembly-id"
       responses:
         "200":
           description: OK
@@ -70,7 +66,7 @@ paths:
                   locale:
                     type: string
                     description: Locale to filter on, using Contentful format (e.g., en)
-                    $ref: "../../basic-details.yaml#/components/schemas/locale"
+                    $ref: "basic-details.yaml#/components/schemas/locale"
 
                   metaDescription:
                     type: string
@@ -84,8 +80,8 @@ paths:
                     minItems: 1
                     items:
                       anyOf:
-                        - $ref: "../../basic-details.yaml#/components/schemas/image/brightcoveImage"
-                        - $ref: "../../basic-details.yaml#/components/schemas/image/cloudinaryImage"
+                        - $ref: "basic-details.yaml#/components/schemas/image/brightcoveImage"
+                        - $ref: "basic-details.yaml#/components/schemas/image/cloudinaryImage"
 
         "400":
           $ref: "#/components/responses/400"
@@ -100,7 +96,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: "../../basic-details.yaml#/components/schemas/error"
+            $ref: "basic-details.yaml#/components/schemas/error"
           example:
             error: "Bad Request"
             message: "No Valid Article Found"
@@ -109,7 +105,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: "../../basic-details.yaml#/components/schemas/error"
+            $ref: "basic-details.yaml#/components/schemas/error"
           example:
             error: "Forbidden"
             message: "App not allowed to request this content"
@@ -118,7 +114,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: "../../basic-details.yaml#/components/schemas/error"
+            $ref: "basic-details.yaml#/components/schemas/error"
           examples:
             Invalid Article Id:
               value:
