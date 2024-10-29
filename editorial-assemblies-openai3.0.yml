@@ -11,11 +11,16 @@ servers:
         default: staging
         enum:
           - staging
+          - dev
 paths:
   /home/{assembly-id}:
     get:
       summary: "Given a Homepage Contentful Assembly Id, returns Homepage response"
       operationId: getFullHomepage
+      parameters:
+        - $ref: "parameters.yaml#/components/parameters/apikey"
+        - $ref: "parameters.yaml#/components/parameters/locale"
+        - $ref: "parameters.yaml#/components/parameters/assembly-id"
       responses:
         "200":
           description: OK
